@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "987450063572",
+    "project_id": "cicada-posinews",
+    "storage_bucket": "cicada-posinews.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987450063572:android:f5a2a27e861cef012dd941",
+        "android_client_info": {
+          "package_name": "com.mukund.cicada_posinews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "987450063572-8iplameba799psj7v9sk5v6eehjrgs1g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSEqw2Ak7kc2YMUUDsKPX7qOZIstthhn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "987450063572-8iplameba799psj7v9sk5v6eehjrgs1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
