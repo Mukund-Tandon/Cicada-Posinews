@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:cicada_posinews/models/news.dart';
-import 'package:cicada_posinews/models/blogTile.dart';
+
+import 'package:cicada_posinews/Widgets/blogTile.dart';
 import 'package:cicada_posinews/data/newsData.dart';
+import 'package:cicada_posinews/data/positiveNewsData.dart';
 class homeScreen extends StatefulWidget {
 
 
@@ -12,7 +13,7 @@ class homeScreen extends StatefulWidget {
 
 class _homeScreenState extends State<homeScreen> {
 
-  List<news> newsList= [];
+  List<Map> positiveNewsList= [];
   bool _loading= true;
   @override
   void initState() {
@@ -22,51 +23,70 @@ class _homeScreenState extends State<homeScreen> {
 
     getNewsList();
 
+
   }
   Future getNewsList()async{
     print('getnewslist start');
-    newsList =await getNews();
+    await getNews();
+
+
+    print('getnewslist end');
+    await getPositiveNewsList();
+  }
+  Future getPositiveNewsList()async{
+    positiveNewsList = await getpositiveNews();
     setState(() {
       _loading = false;
     });
-
-    print('getnewslist end');
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body:_loading?Container(
+          
           child: CircularProgressIndicator(),
-        ): Container(
-          height: double.infinity,
-          width: double.infinity,
-          color: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                child: Text(
-                  'PosiNews',
-                  style: TextStyle(
-                    fontSize: 15.0,
+        ): SafeArea(
+          child: Container(
+            height: double.infinity,
+            width: double.infinity,
+            color: Colors.white,
+            child: Stack(
+
+              children: [
+
+
+                Expanded(
+                  child: Container(
+                    child: ListView.builder(
+                      itemCount: positiveNewsList.length,
+                        shrinkWrap: true,
+                        physics: PageScrollPhysics(),
+                        itemBuilder: (context,index){
+                      return blogTile(
+                        title: (positiveNewsList[index]['title']),
+                        desc: (positiveNewsList[index]['desc']),
+                        imgUrl: positiveNewsList[index]['imgurl'],
+                        url: positiveNewsList[index]['url'],
+                      );
+                    }),
                   ),
                 ),
-              ),
-
-              Expanded(
-                child: Container(
-                  child: ListView.builder(
-                    itemCount: newsList.length,
-                      itemBuilder: (context,index){
-                    return blogTile(
-                      title: newsList[index].title,
-                      desc: newsList[index].desc,
-                      imgUrl: newsList[index].imgUrl,
-                    );
-                  }),
+                Positioned(
+                  top: 25.0,
+                  left: 140,
+                  child: Container(
+                    child: Text(
+                      'PosiNews',
+                      style: TextStyle(
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
         ));
   }
